@@ -466,14 +466,6 @@ func (svd sigVerificationTxHandler) sigVerify(ctx context.Context, tx sdk.Tx, is
 			return sdkerrors.Wrap(sdkerrors.ErrInvalidPubKey, "pubkey on account is not set")
 		}
 
-		// Check account sequence number.
-		if sig.Sequence != acc.GetSequence() {
-			return sdkerrors.Wrapf(
-				sdkerrors.ErrWrongSequence,
-				"account sequence mismatch, expected %d, got %d", acc.GetSequence(), sig.Sequence,
-			)
-		}
-
 		// retrieve signer data
 		genesis := sdkCtx.BlockHeight() == 0
 		chainID := sdkCtx.ChainID()
